@@ -12,10 +12,25 @@
 
 #include "minitalk.h"
 
-int	main()
+void	ft(int signal)
 {
-	printf("PID: %d\n", getpid());
+	if (signal == SIGUSR1)
+	{
+		printf("1\n");
+	}
+	else
+	{
+		printf("0\n");
+	}
+}
+
+int	main(void)
+{
+	ft_printf("PID: %d\n", getpid());
+	signal(SIGUSR1, ft);
+	signal(SIGUSR2, ft);
 	while (1)
 	{
+		pause();
 	}
 }

@@ -16,6 +16,8 @@
 # include "ft_printf/ft_printf.h"
 # include <signal.h>
 
-int	ft_atoi(const char *str);
+int	    ft_atoi(const char *str);
+int	    ft_strlen(const char *str);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
