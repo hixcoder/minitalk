@@ -16,4 +16,6 @@
 # include "ft_printf/ft_printf.h"
 # include <signal.h>
 
+int	ft_atoi(const char *str);
+
 #endif

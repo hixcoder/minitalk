@@ -16,14 +16,17 @@
 
 int	main(int ac, char **av)
 {
+	int pid;
+
 	if (ac == 3)
 	{
 		ft_printf("the server PID: %s \n", av[1]);
 		ft_printf("The string to send: %s \n", av[2]);
 	}
-	// else
-	// 	ft_printf("please enter 2 parameters!\n");
-	char c = 'c';
-	printf("--> %d" , c & 1<<6);
+	else
+		ft_printf("please enter 2 parameters!\n");
+	pid = ft_atoi(av[1]);
+	kill(pid, SIGUSR1);	
+	
 	return (0);
 }
