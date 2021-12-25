@@ -11,26 +11,23 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-void	ft(int signal)
+// SIGUSR1 ==> 1
+// SIGUSR1 ==> 0
+void	ft_signal_handler(int signal)
 {
 	if (signal == SIGUSR1)
-	{
-		printf("1\n");
-	}
-	else
-	{
-		printf("0\n");
-	}
+		ft_printf("1");
+	else if (signal == SIGUSR2)
+		ft_printf("0");
 }
 
 int	main(void)
 {
 	ft_printf("PID: %d\n", getpid());
-	signal(SIGUSR1, ft);
-	signal(SIGUSR2, ft);
 	while (1)
 	{
+		signal(SIGUSR1, ft_signal_handler);
+		signal(SIGUSR2, ft_signal_handler);
 		pause();
 	}
 }
