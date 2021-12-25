@@ -41,35 +41,33 @@ int	ft_atoi(const char *str)
 	return (nbr * sign);
 }
 
-int	ft_strlen(const char *str)
+int	tow_power(int i)
 {
-	int	i;
+	int	nb;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	nb = 1;
+	while (i > 0)
+	{
+		nb *= 2;
+		i--;
+	}
+	return (nb);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_binary_to_decimal(int n)
 {
-	char	*dst;
-	int		len;
-	int		i;
-	int		j;
+	int	dec;
+	int	i;
+	int	remain;
 
-	if (!s1 || !s2)
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	dst = malloc(sizeof(char) * len);
-	if (dst == NULL)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s1[++i])
-		dst[i] = s1[i];
-	while (s2[j])
-		dst[i++] = s2[j++];
-	dst[i] = '\0';
-	return (dst);
+	i = 0;
+	dec = 0;
+	while (n != 0)
+	{
+		remain = n % 10;
+		n = n / 10;
+		dec += remain * tow_power(i);
+		i++;
+	}
+	return (dec);
 }
