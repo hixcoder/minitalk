@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 FT_PRINTF= ./ft_printf
 
-SRC = $(wildcard $(FT_PRINTF)/*.c) minitalk_utils.c
+SRC = $(wildcard $(FT_PRINTF)/*.c) minitalk_utils.c server.c client.c
 
 SRCOBJ = ${SRC:.c=.o}
 

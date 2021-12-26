@@ -1,52 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hboumahd <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 15:29:24 by hboumahd          #+#    #+#             */
-/*   Updated: 2021/12/23 15:29:26 by hboumahd         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "minitalk.h"
-
-int tow_power(int i)
+*/
+void	handler_sigusr(int signum, siginfo_t *info, void *context)
 {
-	int nb;
+	static char	c = 0xFF;
+	static int	bits = 0;
+	static int	pid = 0;
+	static char	*message = 0;
 
-	nb = 1;
-	while (i > 0)
+	(void)context;
+	if (info->si_pid)
+		pid = info->si_pid;
+	if (signum == SIGUSR1)
+		c ^= 0x80 >> bits;
+	else if (signum == SIGUSR2)
+		c |= 0x80 >> bits;
+	if (++bits == 8)
 	{
-		nb *= 2;
-		i--;
+		if (c)
+			message = ft_straddc(message, c);
+		else
+			message = print_string(message);
+		bits = 0;
+		c = 0xFF;
 	}
-	return (nb);
-}
-
-int ft_binary_to_decimal(int n)
-{
-	int dec;
-	int i;
-	int remain;
-
-	i = 0;
-	dec = 0;
-	while (n != 0)
-	{
-		remain = n % 10;
-		n = n / 10;
-		dec += remain * tow_power(i);
-		i++;
-	}
-	return (dec);
-}
-
-int main()
-{
-	int b = 1100001;
-
-	printf("%c\n", ft_binary_to_decimal(b));
-	return (0);
+	if (kill(pid, SIGUSR1) == -1)
+		error(pid, message);
 }

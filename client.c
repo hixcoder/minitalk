@@ -12,7 +12,8 @@
 
 #include "minitalk.h"
 // SIGUSR1 ==> 1
-// SIGUSR1 ==> 0
+// SIGUSR2 ==> 0
+
 void	ft_send_binary_to_server(char *text, int pid)
 {
 	int		i;
@@ -28,9 +29,22 @@ void	ft_send_binary_to_server(char *text, int pid)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(500);
+			usleep(600);
 		}
 	}
+	i = 8;
+	while (i > 0)
+	{
+		kill(pid, SIGUSR2);
+		usleep(500);
+		i--;
+	}
+}
+
+void	ft_signal_handler(int signal)
+{
+	(void)signal;
+	ft_printf("the message is received!\n");
 }
 
 int	main(int ac, char **av)
@@ -39,8 +53,8 @@ int	main(int ac, char **av)
 
 	if (ac == 3)
 	{
+		signal(SIGUSR1, ft_signal_handler);
 		pid = ft_atoi(av[1]);
-		printf("%d\n",pid);
 		ft_send_binary_to_server(av[2], pid);
 	}
 	else
