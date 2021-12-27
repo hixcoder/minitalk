@@ -61,6 +61,6 @@ int	main(int ac, char **av)
 			ft_send_binary_to_server(av[2], pid);
 	}
 	else
-		ft_printf("\n==> Please enter the \"The PID\" and \"The string to send\" !\n\n");
+		ft_printf("\n==> Please enter the \"The PID\" and \"The string\" !\n\n");
 	return (0);
 }
