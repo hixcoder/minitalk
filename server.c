@@ -14,9 +14,9 @@
 // SIGUSR1 ==> 1
 // SIGUSR2 ==> 0
 
-void ft_handel_error(int pid, int *bit, int *binary)
+void	ft_handel_error(int pid, int *bit, int *binary)
 {
-	static int pid_save = 0;
+	static int	pid_save = 0;
 
 	if (pid_save == 0)
 		pid_save = pid;
@@ -28,10 +28,10 @@ void ft_handel_error(int pid, int *bit, int *binary)
 	}
 }
 
-void ft_signal_handler(int signal, siginfo_t *info, void *nothing)
+void	ft_signal_handler(int signal, siginfo_t *info, void *nothing)
 {
-	static int binary = 0;
-	static int bit = 0;
+	static int	binary = 0;
+	static int	bit = 0;
 
 	ft_handel_error(info->si_pid, &bit, &binary);
 	bit++;
@@ -43,22 +43,22 @@ void ft_signal_handler(int signal, siginfo_t *info, void *nothing)
 	if (bit == 8)
 	{
 		ft_printf("%c", ft_binary_to_decimal(binary));
-		if (ft_binary_to_decimal(binary) == 0)
-			kill(info->si_pid, SIGUSR1);
 		bit = 0;
 		binary = 0;
 	}
 }
 
-int main(void)
+int	main(void)
 {
-	struct sigaction new_action;
+	struct sigaction	new_action;
 
 	ft_printf("PID: %d\n", getpid());
 	new_action.sa_sigaction = ft_signal_handler;
 	new_action.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &new_action, NULL);
-	sigaction(SIGUSR2, &new_action, NULL);
 	while (1)
+	{
+		sigaction(SIGUSR1, &new_action, NULL);
+		sigaction(SIGUSR2, &new_action, NULL);
 		pause();
+	}	
 }

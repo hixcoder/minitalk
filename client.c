@@ -29,22 +29,9 @@ void	ft_send_binary_to_server(char *text, int pid)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(600);
+			usleep(800);
 		}
 	}
-	i = 8;
-	while (i > 0)
-	{
-		kill(pid, SIGUSR2);
-		usleep(500);
-		i--;
-	}
-}
-
-void	ft_signal_handler(int signal)
-{
-	(void)signal;
-	ft_printf("the message is received!\n");
 }
 
 int	main(int ac, char **av)
@@ -53,11 +40,13 @@ int	main(int ac, char **av)
 
 	if (ac == 3)
 	{
-		signal(SIGUSR1, ft_signal_handler);
 		pid = ft_atoi(av[1]);
-		ft_send_binary_to_server(av[2], pid);
+		if (pid < 0)
+			printf("\n==> Please enter a valid PID!\n\n");
+		else
+			ft_send_binary_to_server(av[2], pid);
 	}
 	else
-		printf("Please enter the \"PID\" and \"the text\"!\n");
+		printf("\n==> Please enter the \"The PID\" and \"The string to send\" !\n\n");
 	return (0);
 }
