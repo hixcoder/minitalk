@@ -56,11 +56,11 @@ int	main(int ac, char **av)
 		signal(SIGUSR1, ft_signal_handler);
 		pid = ft_atoi(av[1]);
 		if (pid < 0)
-			printf("\n==> Please enter a valid PID!\n\n");
+			ft_printf("\n==> Please enter a valid PID!\n\n");
 		else
 			ft_send_binary_to_server(av[2], pid);
 	}
 	else
-		printf("\n==> Please enter the \"The PID\" and \"The string to send\" !\n\n");
+		ft_printf("\n==> Please enter the \"The PID\" and \"The string to send\" !\n\n");
 	return (0);
 }
