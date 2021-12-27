@@ -33,22 +33,21 @@ FLAGS = -Wall -Wextra -Werror
 $(NAME) : ${SRCOBJ} ${INCLUDE1} ${INCLUDE2}
 	@ar rcs ${NAME} ${SRCOBJ} 
 	@echo "\n ✅ ==> We have just made your libftprintf.a library !\n"
-	
 
 all : $(NAME)  
 	@${CC} ${FLAGS} $(NAME) server.c -o server
 	@${CC} ${FLAGS} $(NAME) client.c -o client
 	@echo " ✅ ==> We created the server and the client ;)\n"
+	@${CC} ${FLAGS} $(NAME) ./bonus/server_bonus.c -o server_bonus
+	@${CC} ${FLAGS} $(NAME) ./bonus/client_bonus.c -o client_bonus
+	@echo " ✅ ==> We created the server_bonus and the client_bonus ;)\n"
 
-server: $(NAME)
+m: $(NAME)
 	@${CC} ${FLAGS} $(NAME) server.c -o server
-	@echo "\n ✅ ==> We created the server ;)\n"
-
-client: $(NAME)
 	@${CC} ${FLAGS} $(NAME) client.c -o client
-	@echo "\n ✅ ==> We created the client ;)\n"
+	@echo " ✅ ==> We created the server and the client ;)\n"
 
-bonus: $(NAME)  
+b: $(NAME) 
 	@${CC} ${FLAGS} $(NAME) ./bonus/server_bonus.c -o server_bonus
 	@${CC} ${FLAGS} $(NAME) ./bonus/client_bonus.c -o client_bonus
 	@echo " ✅ ==> We created the server_bonus and the client_bonus ;)\n"
